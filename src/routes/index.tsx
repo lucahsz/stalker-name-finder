@@ -133,16 +133,55 @@ function IntroScreen({ onStart }: { onStart: (target: string) => void }) {
     return () => clearInterval(id);
   }, []);
 
+  const isValidPhone = (phone: string) => {
+  const digits = phone.replace(/\D/g, "");
+  const national = digits.startsWith("55") ? digits.slice(2) : digits;
+
+  if (national.length !== 10 && national.length !== 11) {
+    return false;
+  }
+
+const validDDDs = [
+  11, 12, 13, 14, 15, 16, 17, 18, 19,
+  21, 22, 24,
+  27, 28,
+  31, 32, 33, 34, 35, 37, 38,
+  41, 42, 43, 44, 45, 46,
+  47, 48, 49,
+  51, 53, 54, 55,
+  61, 62, 63, 64, 65, 66, 67, 68, 69,
+  71, 73, 74, 75, 77, 79,
+  81, 82, 83, 84, 85, 86, 87, 88, 89,
+  91, 92, 93, 94, 95, 96, 97, 98, 99,
+];
+
+const ddd = Number(national.slice(0, 2));
+
+if (!validDDDs.includes(ddd)) {
+  return false;
+}
+  if (national.length === 11 && national[2] !== "9") {
+    return false;
+  }
+
+  return true;
+};
+
+const phoneIsValid = isValidPhone(target);
 
 
   return (
     <form
       className="animate-sintonia-rise mt-8 text-center"
-      onSubmit={(event) => {
-        event.preventDefault();
-        onStart(target.trim() || "esse contato");
-      }}
+onSubmit={(event) => {
+  event.preventDefault();
 
+  if (!phoneIsValid) {
+    return;
+  }
+
+  onStart(target.trim());
+}}
     >
       <h1 className="font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
         Você desconfia que seu namorado(a) esteja te traindo e{" "}
@@ -162,9 +201,14 @@ function IntroScreen({ onStart }: { onStart: (target: string) => void }) {
         placeholder="Digite o número"
         className="mx-auto mt-6 block w-full rounded-2xl border border-sintonia-border bg-white/5 px-5 py-4 text-center text-base text-sintonia-ink placeholder:text-sintonia-muted focus-visible:border-sintonia-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sintonia-pink"
       />
-
+{target.length > 0 && !phoneIsValid && (
+  <p className="mt-2 text-xs text-red-400">
+    Digite um número de telefone válido.
+  </p>
+)}
       <button
         type="submit"
+        disabled={!phoneIsValid}
         className="bg-gradient-sintonia mt-5 w-full rounded-2xl px-8 py-4 font-display text-base font-bold text-sintonia-bg shadow-[0_18px_40px_-18px_var(--sintonia-violet)] transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-[0_26px_50px_-18px_var(--sintonia-pink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sintonia-pink sm:w-auto"
       >
         Descobrir agora
@@ -320,7 +364,7 @@ if (
           rel="noopener noreferrer"
           className="bg-gradient-sintonia inline-flex w-full items-center justify-center rounded-2xl px-8 py-4 font-display text-base font-bold text-sintonia-bg shadow-[0_18px_40px_-18px_var(--sintonia-violet)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sintonia-pink"
         >
-          Código de acesso
+          GARANTA JA SEU Código de acesso!!! receba no email assim que finalizado
         </a>
       </div>
     </div>

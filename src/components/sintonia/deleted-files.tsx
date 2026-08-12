@@ -37,9 +37,9 @@ const CONVERSATIONS: readonly Conversation[] = [
   {
     id: 2,
     title: "Conversa 2",
-    contact: "Ju 💜 · Whatsapp",
+    contact: "J* · Whatsapp",
     messages: [
-      { from: "other", text: "vc falou q ia terminar com ela semana passada", time: "18:02" },
+      { from: "other", text: "vc falou q ia terminar semana passada", time: "18:02" },
       { from: "them", text: "tô resolvendo, é complicado", time: "18:09" },
       { from: "other", text: "sempre complicado né", time: "18:10" },
       { from: "them", text: "confia em mim. sexta eu vou aí", time: "18:12" },
@@ -49,11 +49,11 @@ const CONVERSATIONS: readonly Conversation[] = [
   {
     id: 3,
     title: "Conversa 3",
-    contact: "Grupo · Os Brothers",
+    contact: "Grupo · Secreto",
     messages: [
       { from: "other", text: "e a festa de sábado? vai levar quem?", time: "20:31" },
-      { from: "them", text: "não vou levar ela, vou sozinho 😏", time: "20:33" },
-      { from: "other", text: "kkkkk safado", time: "20:33" },
+      { from: "them", text: "não vou levar, vai só eu 😏", time: "20:33" },
+      { from: "other", text: "kkkkk que safadeza", time: "20:33" },
       { from: "them", text: "só não comenta nada no story", time: "20:35" },
       { from: "other", text: "relaxa, boca de túmulo", time: "20:36" },
     ],
@@ -77,7 +77,7 @@ const CONVERSATIONS: readonly Conversation[] = [
     messages: [
       { from: "other", text: "vc apagou as fotos?", time: "01:12" },
       { from: "them", text: "apaguei tudo, relaxa", time: "01:15" },
-      { from: "other", text: "melhor. se ela ver a gente tá perdido", time: "01:16" },
+      { from: "other", text: "melhor. se ver a gente tá perdido", time: "01:16" },
       { from: "them", text: "ninguém vai ver. boa noite 😘", time: "01:18" },
       { from: "other", text: "boa noite amor", time: "01:19" },
     ],
