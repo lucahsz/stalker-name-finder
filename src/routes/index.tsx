@@ -117,7 +117,7 @@ function Index() {
       </section>
 
       {/* Menu temporário de edição — remova a condicional `false &&` para reativar */}
-       {/* <DevStageMenu stages={STAGES} current={stage} onSelect={setStage} /> */}
+       <DevStageMenu stages={STAGES} current={stage} onSelect={setStage} /> 
     </main>
   );
 }
@@ -233,7 +233,10 @@ function ResultScreen({
 function SuccessScreen({ onShow }: { onShow: () => void }) {
   const [accessCode, setAccessCode] = useState("");
 
+
   const isUnlocked = accessCode.trim() === "m778KK8ytz";
+
+
 
   return (
     <div className="animate-sintonia-rise mt-8 text-center">
@@ -250,6 +253,9 @@ function SuccessScreen({ onShow }: { onShow: () => void }) {
       <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-sintonia-muted sm:text-base">
         Conseguimos quebrar todas as proteções e já estamos com acesso total via WhatsApp Web.
       </p>
+{/* contador */}
+
+
 
       {/* BOTÃO DE ACESSO */}
       <button
@@ -278,7 +284,17 @@ function SuccessScreen({ onShow }: { onShow: () => void }) {
         <input
           type="text"
           value={accessCode}
-          onChange={(e) => setAccessCode(e.target.value)}
+          onChange={(e) => {
+  const value = e.target.value;
+  setAccessCode(value);
+
+if (
+  value.trim() === "m778KK8ytz" &&
+  !localStorage.getItem("accessTimerStart")
+) {
+  localStorage.setItem("accessTimerStart", Date.now().toString());
+}
+}}
           placeholder="Digite seu código de acesso"
           className="mt-4 w-full rounded-xl border border-sintonia-border bg-black/20 px-4 py-3 text-sm text-sintonia-ink outline-none transition focus:border-sintonia-violet"
         />

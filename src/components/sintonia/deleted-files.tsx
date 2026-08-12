@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft, FileText, FolderOpen, ImageIcon, Lock } from "lucide-react";
 
 import gallery1 from "@/assets/gallery-1.jpg";
@@ -102,6 +102,39 @@ type View = "root" | "gallery" | { conversation: number };
 
 export function DeletedFiles() {
   const [view, setView] = useState<View>("root");
+    const [timeLeft, setTimeLeft] = useState<number | null>(null);
+
+  const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+
+  useEffect(() => {
+  const savedStart = localStorage.getItem("accessTimerStart");
+
+  if (savedStart) {
+    const elapsed = Date.now() - Number(savedStart);
+    setTimeLeft(Math.max(0, SEVEN_DAYS - elapsed));
+  }
+}, []);
+
+useEffect(() => {
+  if (timeLeft === null || timeLeft <= 0) return;
+
+  const timer = setInterval(() => {
+    const savedStart = localStorage.getItem("accessTimerStart");
+
+    if (!savedStart) return;
+
+    const elapsed = Date.now() - Number(savedStart);
+    const remaining = Math.max(0, SEVEN_DAYS - elapsed);
+
+    setTimeLeft(remaining);
+
+    if (remaining === 0) {
+      clearInterval(timer);
+    }
+  }, 1000);
+
+  return () => clearInterval(timer);
+}, [timeLeft]);
 
   if (view === "gallery") {
     return (
@@ -229,14 +262,34 @@ export function DeletedFiles() {
         ))}
        </ul>
 
-      <a
-        href="https://web.whatsapp.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-6 flex w-full items-center justify-center rounded-2xl bg-gradient-sintonia px-6 py-4 font-display text-base font-bold text-sintonia-bg transition-transform hover:-translate-y-0.5"
-      >
-        Tentar redirecionar para WhatsApp Web
-      </a>
+      <button
+  type="button"
+  disabled={timeLeft !== 0}
+  onClick={() => {
+    if (timeLeft === 0) {
+      window.open("https://webzap.com", "_blank");
+    }
+  }}
+  className={`mt-6 flex w-full items-center justify-center rounded-2xl px-6 py-4 font-display text-base font-bold transition-all ${
+    timeLeft === 0
+      ? "bg-gradient-sintonia text-sintonia-bg hover:-translate-y-0.5 cursor-pointer"
+      : "cursor-not-allowed bg-white/10 text-sintonia-ink/50"
+  }`}
+>
+  {timeLeft !== null && timeLeft > 0 ? (
+    <>
+      🔒 Galeria e Clongagem do whatsappWeb Disponível em{" "}
+{Math.floor(timeLeft / (1000 * 60 * 60 * 24))} dias,{" "}
+{Math.floor((timeLeft / (1000 * 60 * 60)) % 24)} horas,{" "}
+{Math.floor((timeLeft / (1000 * 60)) % 60)} minutos e{" "}
+{Math.floor((timeLeft / 1000) % 60)} segundos
+    </>
+  ) : timeLeft === 0 ? (
+    "Tentar redirecionar para WhatsApp Web"
+  ) : (
+    "Tentar redirecionar para WhatsApp Web"
+  )}
+</button>
 
     </div>
   );
