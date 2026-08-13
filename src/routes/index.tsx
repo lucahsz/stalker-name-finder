@@ -208,7 +208,7 @@ onSubmit={(event) => {
     >
       <h1 className="font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
         Você desconfia que seu namorado(a) esteja te traindo e{" "}
-        <span className="text-gradient-sintonia">apagando mensagens</span> do WhatsApp? Descubra agora (limite de uma tentativa por maquina)
+        <span className="text-gradient-sintonia">apagando mensagens</span> do WhatsApp?
       </h1>
 
       <label htmlFor="target" className="sr-only">
@@ -221,7 +221,7 @@ onSubmit={(event) => {
         onChange={(event) => setTarget(event.target.value)}
         maxLength={120}
         autoComplete="off"
-        placeholder="Digite o número"
+        placeholder="Digite o número (Maximo de 1 tentativa gratis)"
         className="mx-auto mt-6 block w-full rounded-2xl border border-sintonia-border bg-white/5 px-5 py-4 text-center text-base text-sintonia-ink placeholder:text-sintonia-muted focus-visible:border-sintonia-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sintonia-pink"
       />
 {target.length > 0 && !phoneIsValid && (
