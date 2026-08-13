@@ -208,7 +208,7 @@ onSubmit={(event) => {
     >
       <h1 className="font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
         Você desconfia que seu namorado(a) esteja te traindo e{" "}
-        <span className="text-gradient-sintonia">apagando mensagens</span> do WhatsApp?
+        <span className="text-gradient-sintonia">apagando mensagens</span> do WhatsApp? Descubra agora (limite de uma tentativa por maquina)
       </h1>
 
       <label htmlFor="target" className="sr-only">
