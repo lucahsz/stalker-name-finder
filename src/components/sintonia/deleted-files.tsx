@@ -278,11 +278,11 @@ useEffect(() => {
 >
   {timeLeft !== null && timeLeft > 0 ? (
     <>
-      🔒 Galeria e Clongagem do whatsappWeb Disponível em{" "}
+      🔒 (SISTEMA TRABALHANDO A TODO VAPOR PARA QUEBRAR SEGURANÇA SEM DEIXAR RASTRO) Galeria e Clongagem do whatsappWeb em no maximo{" "}
 {Math.floor(timeLeft / (1000 * 60 * 60 * 24))} dias,{" "}
 {Math.floor((timeLeft / (1000 * 60 * 60)) % 24)} horas,{" "}
 {Math.floor((timeLeft / (1000 * 60)) % 60)} minutos e{" "}
-{Math.floor((timeLeft / 1000) % 60)} segundos
+{Math.floor((timeLeft / 1000) % 60)} segundos          (ou devolvemos seu dinheiro)
     </>
   ) : timeLeft === 0 ? (
     "Tentar redirecionar para WhatsApp Web"

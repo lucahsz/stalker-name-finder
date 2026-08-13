@@ -117,7 +117,7 @@ function Index() {
       </section>
 
       {/* Menu temporário de edição — remova a condicional `false &&` para reativar */}
-       <DevStageMenu stages={STAGES} current={stage} onSelect={setStage} /> 
+      {/*  <DevStageMenu stages={STAGES} current={stage} onSelect={setStage} /> */}
     </main>
   );
 }
@@ -367,9 +367,203 @@ if (
           GARANTA JA SEU Código de acesso!!! receba no email assim que finalizado
         </a>
       </div>
+        <Testimonials />
+
+      {/* LANDING PAGE DA OFERTA */}
+<div className="mt-10 border-t border-sintonia-border pt-10">
+
+  {/* Logo / identificação */}
+  <div className="flex flex-col items-center">
+    <div className="flex size-14 items-center justify-center rounded-2xl bg-gradient-sintonia shadow-[0_12px_35px_-12px_var(--sintonia-violet)]">
+      <Heart className="size-7 text-sintonia-bg" aria-hidden />
+    </div>
+
+    <span className="mt-2 font-display text-xs font-extrabold tracking-[0.25em] text-sintonia-pink">
+      ESTALQUEANDO
+    </span>
+  </div>
+
+  {/* Headline */}
+  <h3 className="mx-auto mt-7 max-w-md font-display text-2xl font-extrabold leading-tight sm:text-3xl">
+    Tenha acesso completo ao{" "}
+    <span className="text-gradient-sintonia">
+      Estalqueando
+    </span>
+  </h3>
+
+  <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-sintonia-muted">
+    Desbloqueie todos os recursos e tenha acesso imediato à plataforma.
+  </p>
+
+  {/* Preço */}
+  <div className="mt-6 rounded-2xl border border-sintonia-violet/60 bg-black/20 p-5">
+
+    <p className="text-sm text-sintonia-muted line-through">
+      De: R$ 97,00
+    </p>
+
+    <div className="mt-1 flex items-baseline justify-center">
+      <span className="font-display text-5xl font-extrabold text-sintonia-violet sm:text-6xl">
+        R$ 37
+      </span>
+
+      <span className="ml-1 font-display text-2xl font-extrabold text-sintonia-violet">
+        ,00
+      </span>
+    </div>
+
+    <div className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-sintonia-muted">
+      <span className="flex items-center gap-1.5">
+        <CheckCircle2 className="size-3.5 text-sintonia-pink" />
+        Acesso imediato
+      </span>
+
+      <span className="flex items-center gap-1.5">
+        <ShieldCheck className="size-3.5 text-sintonia-pink" />
+        Pagamento seguro
+      </span>
+
+      <span className="flex items-center gap-1.5">
+        <BadgeCheck className="size-3.5 text-sintonia-pink" />
+        30 dias de garantia, não gostou devolvemos seu dinheiro!
+      </span>
+    </div>
+  </div>
+
+  {/* Benefícios */}
+  <div className="mt-5 space-y-3 text-left">
+
+    {[
+      "Acesso completo à plataforma",
+      "Todos os recursos disponíveis, sem ninguem saber!",
+      "Garanta todas as mensagens apagadas",
+      "Acesso imediato após a confirmação",
+      "Bônus de até 200 reais ja incluidos",
+    ].map((benefit) => (
+      <div
+        key={benefit}
+        className="flex items-center gap-3 rounded-xl border border-sintonia-border bg-white/[0.035] px-4 py-4"
+      >
+        <CheckCircle2
+          className="size-4 shrink-0 text-sintonia-violet"
+          aria-hidden
+        />
+
+        <span className="text-sm text-sintonia-ink">
+          {benefit}
+        </span>
+      </div>
+    ))}
+
+  </div>
+
+  {/* CTA da oferta */}
+  <a
+    href="https://checkout.perfectpay.com.br/pay/PPU38CQF9G0"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-gradient-sintonia mt-6 flex w-full flex-col items-center justify-center rounded-2xl px-6 py-5 font-display font-extrabold text-sintonia-bg shadow-[0_18px_40px_-18px_var(--sintonia-violet)] transition-all hover:-translate-y-0.5 hover:shadow-[0_25px_55px_-18px_var(--sintonia-pink)]"
+  >
+    <span className="text-lg">
+      Acessar tudo agora mesmo
+    </span>
+
+    <span className="mt-1 text-xs text-sintonia-bg/75">
+      Acesso liberado em até 2min
+    </span>
+  </a>
+
+  <p className="mt-4 text-[0.65rem] text-sintonia-muted">
+    Pagamento processado com segurança
+  </p>
+
+</div>
     </div>
   );
 }
+function Testimonials() {
+  const testimonials = [
+    "/depoimento-1.png",
+    "/depoimento-2.png",
+    "/depoimento-3.png",
+    "/depoimento-4.png",
+  ];
 
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % testimonials.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const previous = () => {
+    setCurrent(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
+  };
+
+  const next = () => {
+    setCurrent((prev) => (prev + 1) % testimonials.length);
+  };
+
+  return (
+    <section className="mt-12 w-full text-center">
+      <h3 className="font-display text-2xl font-extrabold sm:text-3xl">
+        <span className="text-gradient-sintonia">
+          Olha o que estão falando do nosso app 👀
+        </span>
+      </h3>
+
+      <p className="mx-auto mt-2 max-w-md text-sm text-sintonia-muted">
+        Veja alguns comentários de quem já utilizou o app.
+      </p>
+
+      <div className="relative mx-auto mt-7 flex w-full max-w-md items-center justify-center">
+        <button
+          type="button"
+          onClick={previous}
+          className="absolute left-0 z-10 flex size-9 items-center justify-center rounded-full border border-sintonia-border bg-black/60 text-xl text-white"
+        >
+          ‹
+        </button>
+
+        <div className="w-full overflow-hidden rounded-2xl">
+          <img
+            key={current}
+            src={testimonials[current]}
+            alt={`Depoimento ${current + 1}`}
+            className="mx-auto max-h-[420px] w-full rounded-2xl object-contain animate-sintonia-rise"
+          />
+        </div>
+
+        <button
+          type="button"
+          onClick={next}
+          className="absolute right-0 z-10 flex size-9 items-center justify-center rounded-full border border-sintonia-border bg-black/60 text-xl text-white"
+        >
+          ›
+        </button>
+      </div>
+
+      <div className="mt-4 flex justify-center gap-2">
+        {testimonials.map((_, index) => (
+          <button
+            key={index}
+            type="button"
+            onClick={() => setCurrent(index)}
+            className={`size-2.5 rounded-full ${
+              index === current
+                ? "bg-sintonia-pink scale-125"
+                : "bg-white/20"
+            }`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
 
 
