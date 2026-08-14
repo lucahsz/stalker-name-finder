@@ -392,7 +392,7 @@ function SuccessScreen({ onShow }: { onShow: () => void }) {
         </span>
 
         <div className="mt-1 font-display text-4xl font-extrabold text-gradient-sintonia">
-          R$ 37,00
+          R$ 47,00
         </div>
       </div>
 
@@ -538,7 +538,7 @@ if (
 
     <div className="mt-1 flex items-baseline justify-center">
       <span className="font-display text-5xl font-extrabold text-sintonia-violet sm:text-6xl">
-        R$ 37
+        R$ 47
       </span>
 
       <span className="ml-1 font-display text-2xl font-extrabold text-sintonia-violet">
