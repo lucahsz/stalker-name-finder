@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   BadgeCheck,
   CheckCircle2,
@@ -97,7 +98,42 @@ function Index() {
     setStage("intro");
   }, []);
 
+const [offerTimeLeft, setOfferTimeLeft] = useState(30 * 60 * 1000);
 
+useEffect(() => {
+  if (stage !== "success") return;
+
+  const STORAGE_KEY = "offerTimerStart";
+  const DURATION = 30 * 60 * 1000;
+
+  let startTime = localStorage.getItem(STORAGE_KEY);
+
+  if (!startTime) {
+    startTime = Date.now().toString();
+    localStorage.setItem(STORAGE_KEY, startTime);
+  }
+
+  const updateTimer = () => {
+    const elapsed = Date.now() - Number(startTime);
+    setOfferTimeLeft(Math.max(0, DURATION - elapsed));
+  };
+
+  updateTimer();
+
+  const id = setInterval(updateTimer, 1000);
+
+  return () => clearInterval(id);
+}, [stage]);
+
+const totalSeconds = Math.floor(offerTimeLeft / 1000);
+
+const minutes = Math.floor(totalSeconds / 60)
+  .toString()
+  .padStart(2, "0");
+
+const seconds = (totalSeconds % 60)
+  .toString()
+  .padStart(2, "0");
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-sintonia-bg px-4 py-12 font-sans text-sintonia-ink">
       <AmbientSymbols />
@@ -111,7 +147,19 @@ function Index() {
             "radial-gradient(circle, var(--sintonia-violet) 0%, transparent 68%)",
         }}
       />
+{stage === "success" && (
+  <div className="fixed left-0 right-0 top-0 z-[99999] flex h-[52px] w-full items-center justify-center bg-red-600 px-3 shadow-lg">
+    <div className="flex items-center justify-center gap-2">
+      <span className="text-xs font-extrabold uppercase tracking-wide text-white sm:text-sm">
+        Oferta por tempo limitado
+      </span>
 
+      <span className="text-lg font-extrabold tabular-nums leading-none text-white sm:text-xl">
+        {minutes}:{seconds}
+      </span>
+    </div>
+  </div>
+)}
       <section className="glass-card relative z-10 w-full max-w-xl rounded-[2rem] p-7 sm:p-10">
         <header className="flex items-center justify-center gap-2">
           <span className="bg-gradient-sintonia flex size-7 items-center justify-center rounded-lg">
@@ -298,15 +346,73 @@ function ResultScreen({
 }
 
 function SuccessScreen({ onShow }: { onShow: () => void }) {
+  const [showOfferPopup, setShowOfferPopup] = useState(true);
   const [accessCode, setAccessCode] = useState("");
-
 
   const isUnlocked = accessCode.trim() === "m778KK8ytz";
 
 
 
   return (
-    <div className="animate-sintonia-rise mt-8 text-center">
+    <>
+
+    {/* POPUP */}
+    {showOfferPopup && (
+  <div className="fixed inset-0 z-[10000] flex items-start justify-center overflow-y-auto bg-black/70 px-4 pb-6 pt-3 backdrop-blur-sm">
+    <div className="relative w-full max-w-md rounded-3xl border border-sintonia-border bg-sintonia-bg p-6 text-center shadow-[0_25px_80px_-20px_var(--sintonia-violet)] animate-sintonia-rise">
+
+      {/* FECHAR */}
+      <button
+        type="button"
+        onClick={() => setShowOfferPopup(false)}
+        className="absolute right-4 top-4 flex size-8 items-center justify-center rounded-full bg-white/5 text-sintonia-muted transition hover:bg-white/10 hover:text-white"
+        aria-label="Fechar"
+      >
+        ×
+      </button>
+
+      {/* ÍCONE */}
+      <div className="mx-auto flex size-16 items-center justify-center rounded-full bg-gradient-sintonia text-3xl shadow-lg">
+        🎉
+      </div>
+
+      {/* TÍTULO */}
+      <h3 className="mt-5 font-display text-2xl font-extrabold">
+        Azar no amor, mas sorte aqui 😆
+      </h3>
+
+      <p className="mt-3 text-sm leading-relaxed text-sintonia-muted">
+        Você foi sorteado e ganhou um descontasso pra descobrir se rolou traição!
+      </p>
+
+      {/* PREÇO */}
+      <div className="mt-5">
+        <span className="text-sm text-sintonia-muted line-through">
+          R$ 97,00
+        </span>
+
+        <div className="mt-1 font-display text-4xl font-extrabold text-gradient-sintonia">
+          R$ 37,00
+        </div>
+      </div>
+
+      {/* BOTÃO */}
+      <a
+        href="#depoimentos"
+        onClick={() => setShowOfferPopup(false)}
+        className="bg-gradient-sintonia mt-6 inline-flex w-full items-center justify-center rounded-2xl px-6 py-4 font-display text-base font-bold text-sintonia-bg shadow-[0_18px_40px_-18px_var(--sintonia-violet)] transition-transform duration-200 hover:-translate-y-0.5"
+      >
+        Aproveitar oferta
+      </a>
+
+      <p className="mt-3 text-xs text-sintonia-muted">
+        MAS LEMBRANDO QUE É UMA OPORTUNIDADE UNICA, NÃO DEIXE PRA DEPOIS
+      </p>
+    </div>
+  </div>
+)}
+
+    <div className="animate-sintonia-rise mt-8 pt-[55px] text-center">
       <p className="text-6xl sm:text-7xl" aria-hidden>
         🎉
       </p>
@@ -381,17 +487,19 @@ if (
 
       {/* ÁREA DO CÓDIGO */}
       <div className="mt-4 rounded-2xl border border-sintonia-border bg-white/5 p-4 text-center">
-        <a
-          href="https://checkout.perfectpay.com.br/pay/PPU38CQF9G0?"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-gradient-sintonia inline-flex w-full items-center justify-center rounded-2xl px-8 py-4 font-display text-base font-bold text-sintonia-bg shadow-[0_18px_40px_-18px_var(--sintonia-violet)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sintonia-pink"
-        >
-          GARANTA JA SEU Código de acesso!!! receba no email em 1 min
-        </a>
+<a
+  href="#depoimentos"
+  className="bg-gradient-sintonia inline-flex w-full items-center justify-center rounded-2xl px-8 py-4 font-display text-base font-bold text-sintonia-bg shadow-[0_18px_40px_-18px_var(--sintonia-violet)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sintonia-pink"
+>
+  GARANTA JÁ SEU CÓDIGO DE ACESSO!!!
+  <span className="ml-1 text-xs font-medium">
+    receba no email em 1 min
+  </span>
+</a>
       </div>
-        <Testimonials />
-
+      <div id="depoimentos" className="scroll-mt-20">
+  <Testimonials />
+</div>
       {/* LANDING PAGE DA OFERTA */}
 <div className="mt-10 border-t border-sintonia-border pt-10">
 
@@ -405,7 +513,10 @@ if (
       ESTALQUEANDO
     </span>
   </div>
-
+{/* OFERTA POR TEMPO LIMITADO */}
+<p className="mx-auto mt-7 text-xl font-extrabold uppercase tracking-wide text-red-500">
+  Oferta por tempo limitado
+</p>
   {/* Headline */}
   <h3 className="mx-auto mt-7 max-w-md font-display text-2xl font-extrabold leading-tight sm:text-3xl">
     Tenha acesso completo ao{" "}
@@ -502,6 +613,7 @@ if (
 
 </div>
     </div>
+    </>
   );
 }
 function Testimonials() {
