@@ -275,13 +275,13 @@ function ResultScreen({
         🔓
       </p>
       <h2 className="mt-5 font-display text-3xl font-extrabold sm:text-4xl">
-        <span className="text-gradient-sintonia">Relatório pronto</span>
+        <span className="text-gradient-sintonia">Relatório</span>
       </h2>
       <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-sintonia-muted sm:text-base">
-        Nós detectamos aproximadamente cinco possibilidades para burlar o WhatsApp dessa pessoa{" "}
-        <span className="break-all font-semibold text-sintonia-ink">{target}</span>. Porém, a
+        Nós detectamos aproximadamente cinco possibilidades para entrar no WhatsApp dessa pessoa{" "}
+        <span className="break-all font-semibold text-sintonia-ink">{target}</span>.A
         criptografia dessa conta e a autenticação de dois fatores está ligada. Então, vamos
-        tentar novamente com o nosso quebrador de proteções versão 1.5. Clique no botão agora
+        tentar novamente com o nosso  BRUTE FORCE 1.5. Clique no botão agora
         mesmo para tentativa.
       </p>
 
@@ -291,7 +291,7 @@ function ResultScreen({
         className="bg-gradient-sintonia mt-8 inline-flex items-center gap-2 rounded-2xl px-7 py-3.5 font-display text-sm font-bold text-sintonia-bg transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sintonia-pink"
       >
         <RotateCcw className="size-4" aria-hidden />
-        Tentar novamente agora
+        Conectar whatsapp agora mesmo
       </button>
     </div>
   );
@@ -335,7 +335,7 @@ function SuccessScreen({ onShow }: { onShow: () => void }) {
             : "cursor-not-allowed bg-white/10 text-sintonia-ink/50"
         }`}
       >
-        Me mostre agora
+        Abrir whatsapp web
       </button>
 
       {/* CAMPO DE CÓDIGO */}
@@ -345,7 +345,7 @@ function SuccessScreen({ onShow }: { onShow: () => void }) {
         </p>
 
         <p className="mt-1 text-xs leading-relaxed text-sintonia-muted">
-          Insira o código recebido para desbloquear o acesso.
+          Insira o código recebido para desbloquear o botão e acessar o whatsapp.
         </p>
 
         <input
@@ -387,7 +387,7 @@ if (
           rel="noopener noreferrer"
           className="bg-gradient-sintonia inline-flex w-full items-center justify-center rounded-2xl px-8 py-4 font-display text-base font-bold text-sintonia-bg shadow-[0_18px_40px_-18px_var(--sintonia-violet)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sintonia-pink"
         >
-          GARANTA JA SEU Código de acesso!!! receba no email assim que finalizado
+          GARANTA JA SEU Código de acesso!!! receba no email em 1 min
         </a>
       </div>
         <Testimonials />
